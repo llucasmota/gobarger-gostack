@@ -9,23 +9,29 @@ interface ResquestDTO {
 }
 
 class CreateAppointmentService {
-  public execute({ date, provider }: ResquestDTO): Appointment {
+  public async execute({ date, provider }: ResquestDTO): Promise<Appointment> {
     const appointmentRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
     // recuperando agendamentos com a mesma data
-    const findAppointmentInSameDate = this.appointmentRepository.findByDate(
+    const findAppointmentInSameDate = appointmentRepository.findByDate(
       appointmentDate,
     );
 
     if (findAppointmentInSameDate) {
       throw Error('This appointment is already booked');
     }
-
-    const appointment = this.appointmentRepository.create({
+    /**
+     * O método create apenas cria a instância;
+     * para de persistência é preciso utilizar o save()
+     */
+    const appointment = appointmentRepository.create({
       provider,
       date: appointmentDate,
     });
+
+    await appointmentRepository.save(appointment);
+
     return appointment;
   }
 }
