@@ -14,7 +14,7 @@ class CreateAppointmentService {
 
     const appointmentDate = startOfHour(date);
     // recuperando agendamentos com a mesma data
-    const findAppointmentInSameDate = appointmentRepository.findByDate(
+    const findAppointmentInSameDate = await appointmentRepository.findByDate(
       appointmentDate,
     );
 

@@ -5,7 +5,7 @@ interface CreateAppointmentDTO {
   provider: string;
   date: Date;
 }
-
+@EntityRepository(Appointment)
 class AppointmentsRepository extends Repository<Appointment> {
   /**
    *

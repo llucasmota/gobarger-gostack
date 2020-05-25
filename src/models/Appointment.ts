@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import 'reflect-metadata';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('appointments')
@@ -9,7 +9,7 @@ class Appointment {
   @Column()
   provider: string;
 
-  @Column('timestamp with local time zone')
+  @Column('timestamp with time zone')
   date: Date;
 }
 
