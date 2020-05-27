@@ -20,10 +20,10 @@ class Users {
   @Column()
   password: string;
 
-  @CreateDateColumn('timestamp with time zone')
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn('timestamp with time zone')
+  @UpdateDateColumn()
   updated_at: Date;
 }
 
