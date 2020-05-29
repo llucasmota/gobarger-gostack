@@ -4,12 +4,15 @@ import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 interface ResquestDTO {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
 class CreateAppointmentService {
-  public async execute({ date, provider }: ResquestDTO): Promise<Appointment> {
+  public async execute({
+    date,
+    provider_id,
+  }: ResquestDTO): Promise<Appointment> {
     const appointmentRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -26,7 +29,7 @@ class CreateAppointmentService {
      * para de persistência é preciso utilizar o save()
      */
     const appointment = appointmentRepository.create({
-      provider,
+      provider_id,
       date: appointmentDate,
     });
 
