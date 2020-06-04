@@ -22,7 +22,9 @@ export default function ensureAuthenticated(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
     const { sub } = decoded as jwtTokenPayLoad;
-
+    request.user = {
+      id: sub,
+    };
     console.log(decoded);
     return next();
   } catch (err) {
