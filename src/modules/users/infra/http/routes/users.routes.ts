@@ -1,12 +1,11 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-cycle */
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
 import multer from 'multer';
-import uploadConfig from '../config/upload';
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
-import CreateUserService from '../services/CreateUserService';
-import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
+import CreateUserService from '@modules/users/services/CreateUserService';
+import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
+import uploadConfig from '@config/upload';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);

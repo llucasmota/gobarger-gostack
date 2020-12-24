@@ -2,13 +2,16 @@
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "postgres",
-  "password": "admin",
+  "username": "eficazPay",
+  "password": "eficazPay",
   "database": "gostack_gobarber",
-  "entities": ["./src/models/*.ts"],
-  "migrations": ["./src/database/migrations/*.ts"],
+  "entities": [
+    "@modules/users/infra/typeorm/entities/*.ts",
+    "@modules/appointments/infra/typeorm/entities/*.ts"
+  ],
+  "migrations": ["@shared/typeorm/migrations/*.ts"],
 
   "cli": {
-    "migrationsDir": "./src/database/migrations/"
+    "migrationsDir": "@shared/typeorm/migrations/"
   }
 }

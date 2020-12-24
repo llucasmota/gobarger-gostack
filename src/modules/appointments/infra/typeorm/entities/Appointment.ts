@@ -8,7 +8,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import User from './Users';
+import User from '@modules/users/infra/typeorm/entitites/Users';
 
 // KISS: Keep it simple and stupid
 

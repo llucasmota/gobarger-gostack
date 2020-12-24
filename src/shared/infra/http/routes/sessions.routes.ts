@@ -2,7 +2,7 @@
 /* eslint-disable import/no-cycle */
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
-import AuthenticateUserService from '../services/AuthenticateUserService';
+import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 
 const sessionRouter = Router();
 

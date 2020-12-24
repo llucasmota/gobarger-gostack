@@ -1,24 +1,25 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
-import Appointment from '../models/Appointment';
-import AppointmentsRepository from '../repositories/AppointmentsRepository';
-import AppError from '../errors/AppError';
+import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
+import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository';
+import AppError from '@shared/errors/AppError';
+import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentRepository';
 
-interface ResquestDTO {
+interface IResquestDTO {
   provider_id: string;
   date: Date;
 }
 
 class CreateAppointmentService {
+  constructor(private appointmentRepository: IAppointmentRepository) {}
+
   public async execute({
     date,
     provider_id,
-  }: ResquestDTO): Promise<Appointment> {
-    const appointmentRepository = getCustomRepository(AppointmentsRepository);
-
+  }: IResquestDTO): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
     // recuperando agendamentos com a mesma data
-    const findAppointmentInSameDate = await appointmentRepository.findByDate(
+    const findAppointmentInSameDate = await this.appointmentRepository.findByDate(
       appointmentDate,
     );
 
@@ -29,13 +30,10 @@ class CreateAppointmentService {
      * O método create apenas cria a instância;
      * para de persistência é preciso utilizar o save()
      */
-    const appointment = appointmentRepository.create({
+    const appointment = await this.appointmentRepository.create({
       provider_id,
       date: appointmentDate,
     });
-
-    await appointmentRepository.save(appointment);
-
     return appointment;
   }
 }
