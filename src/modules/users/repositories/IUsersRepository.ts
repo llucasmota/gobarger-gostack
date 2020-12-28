@@ -4,7 +4,7 @@
 // save
 
 import ICreateUsersDTO from '../dtos/ICreateUsersDTO';
-import User from '../infra/typeorm/entitites/Users';
+import User from '../infra/typeorm/entities/Users';
 
 export default interface IUsersRepository {
   findByMail(email: string): Promise<User | undefined>;
