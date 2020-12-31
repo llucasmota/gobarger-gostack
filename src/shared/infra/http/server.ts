@@ -1,4 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
+import 'reflect-metadata';
+
 import 'express-async-errors';
 import cors from 'cors';
 import routes from '@shared/infra/http/routes';
@@ -7,7 +9,6 @@ import AppError from '@shared/errors/AppError';
 
 import '@shared/infra/typeorm';
 import '@shared/containers';
-import 'reflect-metadata';
 
 const app = express();
 app.use(cors());
