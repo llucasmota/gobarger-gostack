@@ -27,7 +27,7 @@ class CreateAppointmentService {
     );
 
     if (findAppointmentInSameDate) {
-      throw new AppError('This appointment is already booked');
+      throw new AppError('This appointment is already booked', 400);
     }
     /**
      * O método create apenas cria a instância;
