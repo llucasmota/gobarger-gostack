@@ -1,8 +1,9 @@
+import 'reflect-metadata';
+
 import { hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
-
-import User from '@modules/users/infra/typeorm/entities/Users';
 import AppError from '@shared/errors/AppError';
+import User from '@modules/users/infra/typeorm/entities/Users';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -24,7 +25,7 @@ class CreateUserService {
   }: IRequest): Promise<User | undefined> {
     const checkUserExists = await this.userRepository.findByMail(email);
     if (checkUserExists) {
-      throw new AppError('Email address already exist', 400);
+      throw new AppError('Email address already exist');
     }
 
     const hashPassword = await hash(password, 8);
