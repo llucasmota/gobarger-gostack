@@ -11,7 +11,7 @@ class UsersRepository implements IUsersRepository {
   private users: Users[] = [];
 
   public async findByMail(email: string): Promise<Users | undefined> {
-    const findUser = this.users.find(itemUser => itemUser.email === email);
+    const findUser = this.users.find(user => user.email === email);
     return findUser;
   }
 
@@ -27,7 +27,7 @@ class UsersRepository implements IUsersRepository {
   }: ICreateUsersDTO): Promise<Users> {
     const user = new Users();
     Object.assign(user, { id: uuid(), email, name, password });
-
+    this.users.push(user);
     return user;
   }
 
