@@ -32,27 +32,20 @@ describe('CreateUser', () => {
     });
 
     expect(response).toHaveProperty('token');
+    expect(response.user).toEqual(user);
   });
-  it('should be not able authenticateUser with invalid mail', async () => {
+  it('should be not able authenticateUser with invalid user', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const hashProvider = new HashProvider();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      hashProvider,
-    );
+
     const authenticateUserService = new AuthenticateUserService(
       fakeUserRepository,
       hashProvider,
     );
-    const user = await createUserService.execute({
-      name: 'John Doe',
-      email: 'john.doe@gmail.com',
-      password: '123456',
-    });
 
     expect(
       authenticateUserService.execute({
-        email: 'john.do4@gmail.com',
+        email: 'john.secada@gmail.com',
         password: '123456',
       }),
     ).rejects.toBeInstanceOf(AppError);
