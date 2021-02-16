@@ -12,9 +12,9 @@ describe('CreateUser', () => {
     const fakeUserRepository = new FakeUserRepository();
     const createUserService = new CreateUserService(fakeUserRepository);
     const user = await createUserService.execute({
-      name: 'Lucas',
-      email: 'lucas.o.mota@gmail.com',
-      password: 'rA21343639',
+      name: 'John Doe',
+      email: 'john.doe@gmail.com',
+      password: '123456',
     });
 
     expect(user).toHaveProperty('id');
