@@ -5,6 +5,10 @@ import IStorageProvider from '../models/IStorageProvider';
 
 export default class DiskStorageProvider implements IStorageProvider {
   public async saveFile(file: string): Promise<string> {
+    /**
+     * Recebo o file e está de fato salvo quando o transfiro
+     * de tmpFolder para uploadsFolder
+     */
     await fs.promises.rename(
       path.resolve(uploadConfig.tmpFolder, file),
       path.resolve(uploadConfig.uploadsFolder, file),
@@ -13,6 +17,12 @@ export default class DiskStorageProvider implements IStorageProvider {
   }
 
   public async deleteFile(file: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    const filePath = path.resolve(uploadConfig.uploadsFolder, file);
+    try {
+      await fs.promises.stat(filePath);
+    } catch {
+      return;
+    }
+    await fs.promises.unlink(filePath);
   }
 }

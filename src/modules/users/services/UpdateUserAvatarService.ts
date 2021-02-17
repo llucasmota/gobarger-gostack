@@ -5,6 +5,7 @@ import { injectable, inject } from 'tsyringe';
 
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
+import IStorageProvider from '@shared/containers/providers/StorageProviders/models/IStorageProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -16,6 +17,8 @@ export default class UpdateUserAvatarService {
   constructor(
     @inject('UsersRepository')
     private ormRepository: IUsersRepository,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
@@ -26,11 +29,7 @@ export default class UpdateUserAvatarService {
     if (user.avatar) {
       // deletar avatar anterior
       // criando o caminho que será utilizado para o arquivo
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userFileExist = await fs.promises.stat(userAvatarFilePath);
-      if (userFileExist) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
     user.avatar = avatarFileName;
     await this.ormRepository.save(user);
