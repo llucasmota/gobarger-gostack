@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { startOfHour } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
@@ -26,7 +27,7 @@ class CreateAppointmentService {
     );
 
     if (findAppointmentInSameDate) {
-      throw new AppError('This appointment is already booked');
+      throw new AppError('This appointment is already booked', 400);
     }
     /**
      * O método create apenas cria a instância;

@@ -1,4 +1,4 @@
-export default class Error {
+class AppError {
   public readonly message: string;
 
   public readonly statusCode: number;
@@ -8,3 +8,4 @@ export default class Error {
     this.statusCode = statusCode;
   }
 }
+export default AppError;

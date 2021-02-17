@@ -39,3 +39,7 @@
 ### Subindo o servidor:
 
 - Na raiz do projeto executar o comando: `yarn dev`
+
+### Executanto testes:
+
+- `yarn test`
