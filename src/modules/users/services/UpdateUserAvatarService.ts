@@ -31,7 +31,9 @@ export default class UpdateUserAvatarService {
       // criando o caminho que será utilizado para o arquivo
       await this.storageProvider.deleteFile(user.avatar);
     }
-    user.avatar = avatarFileName;
+    const fileName = await this.storageProvider.saveFile(avatarFileName);
+
+    user.avatar = fileName;
     await this.ormRepository.save(user);
     return user;
   }
